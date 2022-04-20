@@ -13,7 +13,7 @@ namespace CatFact
             ConfigureServices(services);
             await services
                 .BuildServiceProvider()
-                .GetService<CatFactService>()
+                .GetService<ICatFactService>()
                 .GetAndSaveCatFact();
         }
 
@@ -21,8 +21,8 @@ namespace CatFact
         {
             services
                 .AddHttpClient()
-                .AddSingleton<CatFactService, CatFactService>()                                                         
-                .AddSingleton<FileWriter, FileWriter>();
+                .AddSingleton<ICatFactService, CatFactService>()                                                         
+                .AddSingleton<IFileWriter, FileWriter>();
         }
     }
 }

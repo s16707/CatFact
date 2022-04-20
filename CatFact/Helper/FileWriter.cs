@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace CatFact.Helpers
 {
-    public class FileWriter
+    public class FileWriter : IFileWriter
     {
         public FileWriter()
         {

@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace CatFact.Logic
 {
-    public class CatFactService
+    public class CatFactService : ICatFactService
     {
         private readonly HttpClient _httpClient;
-        private readonly FileWriter _fileWriter;
-        public CatFactService(HttpClient httpClient, FileWriter fileWriter)
+        private readonly IFileWriter _fileWriter;
+        public CatFactService(HttpClient httpClient, IFileWriter fileWriter)
         {
             _httpClient = httpClient;
             _fileWriter = fileWriter;
