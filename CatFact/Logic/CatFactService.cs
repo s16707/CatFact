@@ -1,4 +1,6 @@
 ﻿using CatFact.Helpers;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -15,10 +17,21 @@ namespace CatFact.Logic
         }
         public async Task GetAndSaveCatFact()
         {
-            var response = await _httpClient.GetAsync("https://catfact.ninja/fact");
-            response.EnsureSuccessStatusCode();
-            var responseBody = await response.Content.ReadAsStringAsync();
-            await _fileWriter.WriteToFile(responseBody);
+            try
+            {
+                var response = await _httpClient.GetAsync("https://catfact.ninja/fact");
+                response.EnsureSuccessStatusCode();
+                var responseBody = await response.Content.ReadAsStringAsync();
+                await _fileWriter.WriteToFile(responseBody);
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine("HTTP exception found", ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception found ", ex.Message);
+            }
         }
     }
 }

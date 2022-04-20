@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace CatFact.Helpers
@@ -10,8 +11,16 @@ namespace CatFact.Helpers
 
         }
         public async Task WriteToFile(string content) {
-            using StreamWriter file = new("WriteLines2.txt", append: true);
-            await file.WriteLineAsync(content);
+            try
+            {
+                using StreamWriter file = new("WriteLines2.txt", append: true);
+                await file.WriteLineAsync(content);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            
         }
     }
 }
