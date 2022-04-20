@@ -1,27 +1,23 @@
 ﻿using CatFact.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CatFact.Logic
 {
-    public class GetFactLogic
+    public class CatFactService
     {
         private readonly HttpClient _httpClient;
         private readonly FileWriter _fileWriter;
-        public GetFactLogic(HttpClient httpClient, FileWriter fileWriter)
+        public CatFactService(HttpClient httpClient, FileWriter fileWriter)
         {
             _httpClient = httpClient;
             _fileWriter = fileWriter;
         }
-        public async Task Execute()
+        public async Task GetAndSaveCatFact()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync("https://catfact.ninja/fact");
+            var response = await _httpClient.GetAsync("https://catfact.ninja/fact");
             response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
+            var responseBody = await response.Content.ReadAsStringAsync();
             await _fileWriter.WriteToFile(responseBody);
         }
     }
